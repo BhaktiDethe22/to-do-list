@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TaskFlow | Smart Task Manager</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Background decoration -->
+    <div class="background-shape shape-one"></div>
+    <div class="background-shape shape-two"></div>
+
+    <header class="navbar">
+        <div class="brand">
+            <div class="brand-icon">✓</div>
+            <div>
+                <h1>TaskFlow</h1>
+                <span>Smart Task Manager</span>
+            </div>
+        </div>
+
+        <button id="themeBtn" class="theme-btn" title="Change theme">
+            ☀️
+        </button>
+    </header>
+
+    <main class="container">
+
+        <!-- Welcome -->
+        <section class="welcome-section">
+            <div>
+                <p class="small-label">YOUR PRODUCTIVITY SPACE</p>
+                <h2>Plan your day.<br><span>Get things done.</span></h2>
+                <p class="welcome-text">
+                    Organize your tasks, track your progress and stay focused.
+                </p>
+            </div>
+
+            <div class="date-card">
+                <span id="currentDay">Monday</span>
+                <strong id="currentDate">24 October 2026</strong>
+            </div>
+        </section>
+
+        <!-- Statistics -->
+        <section class="stats-grid">
+
+            <div class="stat-card">
+                <div class="stat-icon total-icon">◎</div>
+                <div>
+                    <span>Total Tasks</span>
+                    <strong id="totalTasks">0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon pending-icon">◷</div>
+                <div>
+                    <span>Pending</span>
+                    <strong id="pendingTasks">0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon completed-icon">✓</div>
+                <div>
+                    <span>Completed</span>
+                    <strong id="completedTasks">0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon progress-icon">↗</div>
+                <div>
+                    <span>Progress</span>
+                    <strong id="progressPercent">0%</strong>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Add Task -->
+        <section class="task-input-card">
+
+            <div class="section-heading">
+                <div>
+                    <p class="small-label">NEW TASK</p>
+                    <h3>Create a task</h3>
+                </div>
+            </div>
+
+            <form id="taskForm">
+
+                <div class="form-row">
+
+                    <div class="input-group task-title-input">
+                        <label for="taskInput">Task title</label>
+                        <input
+                            type="text"
+                            id="taskInput"
+                            placeholder="What do you need to accomplish?"
+                            required
+                        >
+                    </div>
+
+                    <div class="input-group">
+                        <label for="priorityInput">Priority</label>
+                        <select id="priorityInput">
+                            <option value="Low">Low</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="dateInput">Due date</label>
+                        <input type="date" id="dateInput">
+                    </div>
+
+                    <button type="submit" class="add-btn">
+                        <span>+</span> Add Task
+                    </button>
+
+                </div>
+
+            </form>
+        </section>
+
+        <!-- Task controls -->
+        <section class="task-area">
+
+            <div class="task-header">
+
+                <div>
+                    <p class="small-label">YOUR TASKS</p>
+                    <h3>Task List</h3>
+                </div>
+
+                <div class="task-controls">
+
+                    <div class="search-box">
+                        <span>⌕</span>
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Search tasks..."
+                        >
+                    </div>
+
+                    <select id="filterInput" class="filter-select">
+                        <option value="all">All Tasks</option>
+                        <option value="pending">Pending</option>
+                        <option value="completed">Completed</option>
+                        <option value="high">High Priority</option>
+                    </select>
+
+                </div>
+
+            </div>
+
+            <!-- Task list -->
+            <div id="taskList" class="task-list">
+
+                <div id="emptyState" class="empty-state">
+                    <div class="empty-icon">✓</div>
+                    <h3>No tasks yet</h3>
+                    <p>Add your first task and start getting things done.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Progress -->
+        <section class="progress-section">
+
+            <div class="progress-header">
+                <div>
+                    <p class="small-label">PRODUCTIVITY</p>
+                    <h3>Today's Progress</h3>
+                </div>
+
+                <strong id="progressText">0 of 0 completed</strong>
+            </div>
+
+            <div class="progress-bar">
+                <div id="progressBar"></div>
+            </div>
+
+        </section>
+
+        <footer>
+            <p>TaskFlow • Built with HTML, CSS & JavaScript</p>
+        </footer>
+
+    </main>
+
+    <!-- Edit Task Modal -->
+    <div id="editModal" class="modal">
+
+        <div class="modal-content">
+
+            <button id="closeModal" class="close-modal">×</button>
+
+            <p class="small-label">EDIT TASK</p>
+            <h3>Update your task</h3>
+
+            <form id="editForm">
+
+                <div class="input-group">
+                    <label for="editTitle">Task title</label>
+                    <input type="text" id="editTitle" required>
+                </div>
+
+                <div class="modal-row">
+
+                    <div class="input-group">
+                        <label for="editPriority">Priority</label>
+
+                        <select id="editPriority">
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="editDate">Due date</label>
+                        <input type="date" id="editDate">
+                    </div>
+
+                </div>
+
+                <button class="save-btn" type="submit">
+                    Save Changes
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
